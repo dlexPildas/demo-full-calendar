@@ -4,6 +4,7 @@ import { finalize } from 'rxjs/operators';
 import { DataModel } from './models/data.model';
 import { AppService } from './services/app.service';
 import { ResultSearchModel } from './models/result-search.model';
+import { CalendarOptions, FullCalendarComponent, ToolbarInput } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-root',
@@ -11,31 +12,53 @@ import { ResultSearchModel } from './models/result-search.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  @ViewChild('calendar', { static: false }) calendar: any;
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   result: DataModel[] = [];
-  date: any;
   loading = false;
+
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth', // bind is important!
+
+    customButtons: {
+      nextMonthButton: {
+        text: '>',
+        click: () => this.nextMonth()
+      },
+      prevMonthButton: {
+        text: '<',
+        click: () => this.prevMonth()
+      }
+    },
+    headerToolbar: {
+      left: '',
+      center: 'title',
+      right:'prevMonthButton,nextMonthButton'
+    }
+  };
 
   constructor(private appService: AppService) {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.changeDate(this.calendar.activeDate);
-    }, 0);
-
-    this.calendar.stateChanges.subscribe((x: any) => {
-      this.changeDate(this.calendar.activeDate);
-    });
+    this.changeDate(this.calendarComponent?.getApi().currentData.currentDate);
   }
 
-  changeDate(value: any): void {
-    this.date = value;
-    const dateSelected = new Date(value);
+  nextMonth() {
+    this.calendarComponent.getApi().next();
+    this.calendarComponent.getApi().next();
+    this.changeDate(this.calendarComponent?.getApi().currentData.currentDate)
+    this.calendarComponent.getApi().prev();
+  }
 
-    const year = dateSelected.getFullYear();
-    const month = dateSelected.getMonth() + 1;
+  prevMonth(): void {
+    this.changeDate(this.calendarComponent?.getApi().currentData.currentDate);
+    this.calendarComponent.getApi().prev();
+  }
+
+  changeDate(date: Date): void {
+    const year = date.getFullYear();
+    let month = date.getMonth() + 1;
 
     this.loadData(new Date(year, month, 0).getDate(), month, year)
   }
@@ -47,7 +70,7 @@ export class AppComponent implements AfterViewInit {
         finalize(() => this.loading = false)
       )
       .subscribe(
-        (result: ResultSearchModel) => this.result = result.data // this.result = datas
+        (result: ResultSearchModel) => this.result = result.data
       );
   }
 }

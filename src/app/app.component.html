@@ -1,16 +1,14 @@
 <main class="container">
   <section class="section-calendar">
-    <mat-calendar #calendar
-      class="w-100">
-    </mat-calendar>
+    <full-calendar #calendar [options]="calendarOptions"></full-calendar>
   </section>
 
   <section class="section-data-list">
     <app-datas-list *ngIf="!loading"
       [datas]="result">
     </app-datas-list>
-
-    <app-loading [loading]="loading"></app-loading>
   </section>
+
+  <app-loading [loading]="loading"></app-loading>
 </main>
 
