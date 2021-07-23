@@ -1,0 +1,28 @@
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0;
+}
+
+ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  background: #eee;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+ul li:hover {
+  transform: translateY(-5px);
+}
+
+ul li span {
+  flex: 1;
+  color: #ff5a70;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+}

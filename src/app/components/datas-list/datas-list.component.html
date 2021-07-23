@@ -1,0 +1,9 @@
+<ul>
+  <li *ngFor="let data of datas">
+    <span>{{data.title}}</span>
+    <span>{{data.testType}}</span>
+    <span>{{data.authorName}}</span>
+    <span>{{data.startDate | date:'MM/dd/yyyy'}}</span>
+    <span>{{data.noOfQuestions}}</span>
+  </li>
+</ul>

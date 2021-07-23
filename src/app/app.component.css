@@ -1,0 +1,23 @@
+.container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container .section-calendar {
+  width: 50%;
+}
+
+.container .section-data-list {
+  width: 70%;
+}
+
+.w-100 {
+  /* margin: 15px 200px;
+  width: 100%; */
+  background: #eee;
+  border-radius: 10px;
+}
