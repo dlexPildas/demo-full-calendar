@@ -8,7 +8,11 @@
 }
 
 .container .section-calendar {
-  width: 50%;
+  width: 100%;
+  max-width: 870px;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-top: 5px solid #fac863;;
 }
 
 .container .section-data-list {

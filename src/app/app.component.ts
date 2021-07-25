@@ -28,12 +28,19 @@ export class AppComponent implements AfterViewInit {
       prevMonthButton: {
         text: '<',
         click: () => this.prevMonth()
+      },
+      todayButton: {
+        text: 'today',
+        click: () => this.today()
+      },
+      monthButton: {
+        text: 'month',
       }
     },
     headerToolbar: {
-      left: '',
+      left: 'prevMonthButton,nextMonthButton todayButton',
       center: 'title',
-      right:'prevMonthButton,nextMonthButton'
+      right: 'monthButton'
     }
   };
 
@@ -42,6 +49,11 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.changeDate(this.calendarComponent?.getApi().currentData.currentDate);
+  }
+
+  today(): void {
+    this.calendarComponent.getApi().today();
+    this.changeDate(this.calendarComponent?.getApi().currentData.currentDate)
   }
 
   nextMonth() {
